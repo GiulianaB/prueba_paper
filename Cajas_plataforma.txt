@@ -1,0 +1,32 @@
+﻿Cajas en plataforma!
+
+-  Franco et al., 2015. http://dx.doi.org/10.1016/j.ecss.2014.12.006
+Triangulo (44-43grad S) donde estan los bancos de vieiras sobre la plataforma. 
+
+- Franco et al., 2017.  http://dx.doi.org/10.1016/j.seares.2017.04.012
+Modelado sobre el talud donde estan los bancos mas importantes comercialmente de vieiras. Entre 38-45gradS, entre 100-200m. 
+
+- Acha et al., 2003. doi:10.1016/j.jmarsys.2003.09.005
+Una caja contra contienente mostrando el frente de marea de madryn. (40-46grad S)
+
+- Bianchi et al., 2005. 0148-0227/05/2004JC002488 y Bianchi et al., 2009. doi:10.1029/2008JC004854. 
+Estudio de parametro de simpson y delta de pCO2 con datos hidrograficos. Existen lugares muy definidos donde es sumidero. Pueden tomarse como cajas.
+
+??? Importan las temp subsuperficiales a la hora de ver los pCO2????
+
+-Brun et al., 2020. https://doi.org/10.1016/j.ecss.2020.106661  y Guihou et al., 2019.
+Pluma de salinidad sobre plataforma sur. Se puede elegir esa caja para ver la influencia del ingreso de aguas por el canal de Magallanes. 
+
+- Marrari et al., 2016. http://dx.doi.org/10.1016/j.rse.2016.02.011 
+Dos cajas contra continente al sur de madryn donde estudia la tendencia de clorofila. 
+
+- Mauna et al., 2011a. doi:10.1016/j.seares.2011.04.014
+Cajas debajo del frente del talud y a sus margenes donde estudian los bichos que hay en cada lugar.
+
+- Piola et al., 2010. https://os.copernicus.org/articles/6/345/2010/os-6-345-2010-discussion.html 
+Cajas de difernetes tamanios entre 39-46grad S donde analiza la intrusion de CM sobre plataforma. Muestra una serie temporal de diferencia de SST entre dos cajas (1985-2003)
+
+- Rivas et al., 2010. doi:10.1016/j.jmarsys.2009.07.008.
+6 zonas diferentes asociadas a frentes. Estudia la variabilidad estacional
+
+
