@@ -1,3 +1,3 @@
 """
-En esta rutina vamos a generar los cálculos para el paper
+En esta rutina vamos a generar los cálculos para el mejor paper
 """
