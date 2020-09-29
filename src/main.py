@@ -17,10 +17,14 @@ filename = 'd01.p'
 df, lat, lon, fecha = aux.read_pickle(path + filename)
 
 # 3. estratificación
+# TODO - generar columna con densidad potencial
+
 # TODO - parametro de simpson
 # TODO - profundidad de la capa de mezcla
 
-# TODO - generar columna con densidad potencial
+# Guardar con las modificaciones.
+
+# 0. Armar las series de tiempo de diccionarios de la caja elegida. 
 
 # 1. Climatologia a diferentes niveles (a definir)
 # TODO - para esto necesitariamos trabajar con varios perfiles a la vez
