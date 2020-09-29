@@ -3,7 +3,7 @@
 ### Comandos de git
 git pull  -- > trae todo de la nube
 git add . --> agrego a la carpeta local de git lo que cambie
-git commit -m [comentario] --> le digo lo que cambie en la carpeta local
+git commit -m ['comentario'] --> le digo lo que cambie en la carpeta local
 git push --> se lo manda a la nube
 
 ### main.py
