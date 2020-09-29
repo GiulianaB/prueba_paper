@@ -10,3 +10,7 @@ git push --> se lo manda a la nube
 script principal donde se trabaja sobre los perfiles P,T,S
 ### estaciones_CTD_tipo 
 carpeta con perfiles de P,T,S de ejemplo. 
+
+### Environment
+guia_crear_env.txt --> Guia para crear un environment usando el archivo .yml
+environment.yml --> Archivo para crear environment
