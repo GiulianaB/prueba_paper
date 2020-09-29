@@ -6,3 +6,4 @@ conda env export > environment.yml
 
 
 ## crear environment con un archivo .yml
+conda env create -f environment.yml
