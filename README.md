@@ -15,3 +15,6 @@ carpeta con perfiles de P,T,S de ejemplo.
 ### Environment
 - guia_crear_env.txt --> Guia para crear un environment usando el archivo .yml
 * environment.yml --> Archivo para crear environment
+
+### Bibliografia
+ - Papers y cosas de donde nos basamos para todo
