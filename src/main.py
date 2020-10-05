@@ -33,8 +33,7 @@ df, lat, lon, fecha, par_sim = aux.add_simpson_parameter(filename)
 Zref = 10                   # m.
 umbral = 0.07               # kg/m3
 
-
-
+df, lat, lon, fecha, par_sim, pcm = aux.add_pcm_umbral_densidad(filename, Zref, umbral)
 
 # Guardar con las modificaciones.
 

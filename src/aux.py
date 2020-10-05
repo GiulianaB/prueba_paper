@@ -199,29 +199,48 @@ def add_simpson_parameter(filename):
     return df, lat, lon, fecha, par_sim
 
 
-def pcm_umbral_densidad(z,rho):
+def pcm_umbral_densidad(z, rho, zref, umbral):
+    """
+    Calcula la profundidad de la capa de mezcla a partir
+    de un perfil de rho en función de la profundidad.
+    Se utiliza un criterio de umbral de densidad respecto
+    a una profundidad de referencia.
+
+    INPUTS
+    z: array de profundidades.
+    rho: array de densidad potencial
+    zref: profundidad de referencia
+    umbral: umbral de densidad.
+
+    OUTPUTS
+    zpcm: profundidad de la pcm
+    """
+
+    import numpy as np
+
+    idx = (np.abs(z - zref)).argmin()
+    z_nearest =  z[idx]                       # valor de profundidad mas cercano a zref
 
     for i, iz in enumerate(z):
 
-        delta_theta = rho[]
+        delta_theta = rho[i] - rho[idx]
 
+        if delta_theta > umbral:
+            break
+    zpcm = iz
 
-
-
-
-
+    return zpcm
 
 def add_pcm_umbral_densidad(filename, zref, umbral):
-
 
     import numpy as np
 
     # Según la tesis de Valen, hay perfiles que son homogeneos, donde
     # los algoritmos llegan a resultados erroneos. Para el cálculo de la
-    # PCM se excluyen los perfiles homogeneos (si en un perfil la diferencia
+    # PCM se excluyen los perfiles homogeneos ("si en un perfil la diferencia
     # entre la σθ de superficie y la σθ correspondiente a la máxima profundidad
     # medida es estrictamente menor que 0,15kg/m 3 entonces es considerado
-    # homogéneo, Giunta 2016.)
+    # homogéneo", Giunta 2016.)
 
     df, lat, lon, fecha, par_sim = read_pickle_perfiles(filename)
 
@@ -236,9 +255,7 @@ def add_pcm_umbral_densidad(filename, zref, umbral):
     if np.abs(rho_fondo-rho_sup) < 0.15:
         pcm = np.nan
     else:
-        pcm =
-
-
+        pcm = pcm_umbral_densidad(prof, rho, zref, umbral)
 
 
     dic = {'nombre': filename[:3],
