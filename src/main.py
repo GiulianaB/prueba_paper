@@ -9,6 +9,7 @@ path_gral = '/home/daniu/Documentos/'
 
 # Librerias
 import sys
+import matplotlib.pyplot as plt
 sys.path.append(path_gral + 'prueba_paper/src')
 import aux
 
@@ -34,6 +35,9 @@ Zref = 10                   # m.
 umbral = 0.07               # kg/m3
 
 df, lat, lon, fecha, par_sim, pcm = aux.add_pcm_umbral_densidad(filename, Zref, umbral)
+
+aux.profile_layout(df, lat, lon, fecha, par_sim, pcm)
+
 
 # Guardar con las modificaciones.
 

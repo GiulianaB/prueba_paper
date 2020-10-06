@@ -233,6 +233,7 @@ def pcm_umbral_densidad(z, rho, zref, umbral):
 
 def add_pcm_umbral_densidad(filename, zref, umbral):
 
+    import pickle
     import numpy as np
 
     # Según la tesis de Valen, hay perfiles que son homogeneos, donde
@@ -268,3 +269,98 @@ def add_pcm_umbral_densidad(filename, zref, umbral):
     pickle.dump(dic, open('../perfiles/' + filename, "wb"))
 
     return df, lat, lon, fecha, par_sim, pcm
+
+
+def profile_layout(df, lat, lon, fecha, par_sim, pcm):
+
+    import numpy as np
+    import gsw
+    from bokeh.io import output_file, show, export_png
+    from bokeh.layouts import row, column
+    from bokeh.plotting import figure
+    from bokeh.models import (Span, Div,
+                              ColorBar,
+                              FixedTicker,
+                              LinearColorMapper,
+                              PrintfTickFormatter)
+    from bokeh.transform import linear_cmap
+
+    tools = "hover, save, pan, box_zoom, reset, wheel_zoom"
+
+    output_file("profile_features.html")
+
+    y = df['PROF']
+    x0 = df['TEMP']
+    x1 = df['SAL']
+    x2 = df['DENS']
+
+    mint = x0.min()
+    maxt = x0.max()
+    mins = x1.min()
+    maxs = x1.max()
+
+    tempL = np.linspace(mint-1, maxt+1, 156)
+
+    salL = np.linspace(mins-1, maxs+1, 156)
+
+    Tg, Sg = np.meshgrid(tempL, salL)
+    sigma_theta = gsw.sigma0(Sg, Tg)
+
+    s1 = figure(plot_width=300, plot_height=500, background_fill_color="#fafafa",
+                title="Temperature", toolbar_location="above", x_axis_location="above",
+                tools=tools)
+    s1.line(x0, y, color="#53777a", line_width=2)
+    s1.circle(x0, y, size=4, color="#53777a", alpha=0.8, fill_color='white')
+    hline = Span(location=pcm, dimension='width', line_color='black', line_width=1.5)
+    s1.renderers.extend([hline])
+    s1.xaxis.axis_label = "Temperature [°C]"
+    s1.yaxis.axis_label = "Depth [m]"
+
+    s2 = figure(plot_width=300, plot_height=500, background_fill_color="#fafafa",
+                title="Salinity", toolbar_location="above", x_axis_location="above",
+                tools=tools)
+    hline = Span(location=pcm, dimension='width', line_color='black', line_width=1.5)
+    s2.renderers.extend([hline])
+    s2.line(x1, y, color="#c02942", line_width=2)
+    s2.circle(x1, y, size=4, color="#c02942", alpha=0.8, fill_color='white')
+    s2.xaxis.axis_label = "Salinity [PSU]"
+
+    s3 = figure(plot_width=300, plot_height=500, background_fill_color="#fafafa",
+                title="Density", toolbar_location="above", x_axis_location="above",
+                tools=tools)
+    hline = Span(location=pcm, dimension='width', line_color='black', line_width=1.5)
+    s3.renderers.extend([hline])
+    s3.line(x2, y, color="#d95b43", line_width=2)
+    s3.circle(x2, y, size=4, color="#d95b43", alpha=0.8, fill_color='white')
+    s3.xaxis.axis_label = "Density [kg m3]"
+
+    s4 = figure(plot_width=300, plot_height=300, background_fill_color="#fafafa",
+                title="TS diagram", toolbar_location="above",
+                tools=tools, tooltips=[("x", "$x"), ("y", "$y"), ("value", "@image")])
+    s4.x_range.range_padding = s4.y_range.range_padding = 0
+
+    s4.circle(x1, x0, size=4, color="#f95b43", alpha=0.8, fill_color='white')
+    s4.xaxis.axis_label = "Salinity [PSU]"
+    s4.yaxis.axis_label = "Temperature [°C]"
+    s4.image(image=[sigma_theta], x=mins, y=mint, dw=maxs-mins, dh=maxt-mint, palette="Spectral11", level="image")
+
+    mapper = linear_cmap(field_name='y', palette='Spectral11', low=sigma_theta.min(), high=sigma_theta.max())
+
+    levels = np.linspace(sigma_theta.min(), sigma_theta.max(), 11)
+    color_bar = ColorBar(color_mapper=mapper['transform'],
+                         major_label_text_font_size="8pt",
+                         ticker=FixedTicker(ticks=levels),
+                         formatter=PrintfTickFormatter(format='%.2f'),
+                         label_standoff=6,
+                         border_line_color=None,
+                         location=(0, 0))
+
+    s4.add_layout(color_bar, 'right')
+
+    plots = row(s1, s2, s3, s4)
+    final_plot = column(Div(text = f'<p>Lat: {lat:.2f}, Lon: {lon:.2f}, Fecha: {fecha} <p>PCM: {pcm:.2f}, Parámetro de Simpson: {par_sim:.2f}',
+                        style={'font-size': '110%', 'color': 'black', 'font-weight': 'bold'}), plots)
+
+    show(final_plot)
+
+    export_png(final_plot, filename='../figs/' +'output-plot.png')
