@@ -11,7 +11,7 @@ import pandas as pd
 import pickle
 
 
-files = ['d01.cnv','d02.cnv','d040.cnv','d050.cnv']
+files = ['d01.cnv','d02.cnv','d040.cnv','d050.cnv','u035.cnv']
 
 for f in files:
 
