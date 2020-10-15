@@ -155,6 +155,7 @@ def add_simpson_parameter(filename):
 
     import pickle
     import numpy as np
+
     # Perfil vertical de densidad inventado
     df, lat, lon, fecha, par_sim = read_pickle_perfiles(filename)
 
@@ -197,7 +198,6 @@ def add_simpson_parameter(filename):
     pickle.dump(dic, open('../perfiles/' + filename, "wb"))
 
     return df, lat, lon, fecha, par_sim
-
 
 def pcm_umbral_densidad(z, rho, zref, umbral):
     """
