@@ -17,6 +17,8 @@ def read_pickle(filename):
     """
     import pickle
 
+    if filename[:2] == 'bn': filename = 'Box_norte/' + filename
+    if filename[:2] == 'bs': filename = 'Box_sur/' + filename
     pickle_perfil = pickle.load(open('../estaciones_CTD_tipo/' + filename, 'rb'))
 
     df_datos = pickle_perfil.get('data')
@@ -254,7 +256,7 @@ def add_pcm_umbral_densidad(filename, zref, umbral):
     rho_fondo = rho[-1]
 
     if np.abs(rho_fondo-rho_sup) < 0.15:
-        pcm = np.nan
+        pcm = 0
     else:
         pcm = pcm_umbral_densidad(prof, rho, zref, umbral)
 

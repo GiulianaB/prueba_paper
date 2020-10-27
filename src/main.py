@@ -16,6 +16,7 @@ import aux
 # leemos perfil
 path = path_gral + 'prueba_paper/estaciones_CTD_tipo/'
 filename = 'bn2_14_0_0.p'
+filename = 'bn3_3_0_0.p'
 
 
 df, lat, lon, fecha = aux.read_pickle(filename)
