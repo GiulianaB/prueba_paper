@@ -4,8 +4,8 @@ En esta rutina vamos a generar los cálculos para el mejor paper
 Dani Risaro
 Giuli Berden
 """
-path_gral = '/home/daniu/Documentos/'
-# path_gral = '/media/giuliana/Disco1TB/'
+# path_gral = '/home/daniu/Documentos/'
+path_gral = '/media/giuliana/Disco1TB/'
 
 # Librerias
 import sys
@@ -15,7 +15,8 @@ import aux
 
 # leemos perfil
 path = path_gral + 'prueba_paper/estaciones_CTD_tipo/'
-filename = 'u03.p'
+filename = 'bn2_14_0_0.p'
+
 
 df, lat, lon, fecha = aux.read_pickle(filename)
 
