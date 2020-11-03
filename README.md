@@ -11,6 +11,9 @@ script principal donde se trabaja sobre los perfiles P,T,S
 
 ### ```estaciones_CTD_tipo```
 carpeta con perfiles de P,T,S de ejemplo. 
+subcarpetas: 
+- Box norte: perfiles estandarizados a 1 dbar 
+- Box sur           
 
 ### Environment
 - ```guia_crear_env.txt``` -> Guia para crear un environment usando el archivo .yml
