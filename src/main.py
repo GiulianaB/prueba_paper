@@ -15,8 +15,17 @@ import aux
 
 # leemos perfil
 path = path_gral + 'prueba_paper/estaciones_CTD_tipo/'
-filename = 'bn2_14_0_0.p'
-filename = 'bn3_3_0_0.p'
+# filename = 'bn1_0_0_0.p'
+# filename = 'bn1_1_0_0.p'
+# filename = 'bn1_2_0_0.p'
+# filename = 'bn1_3_0_0.p'
+# filename = 'bn1_4_0_0.p'
+# filename = 'bn1_5_0_0.p'
+# filename = 'bn1_6_0_0.p'
+# filename = 'bn1_7_0_0.p'
+filename = 'bn1_8_0_0.p'
+
+
 
 
 df, lat, lon, fecha = aux.read_pickle(filename)

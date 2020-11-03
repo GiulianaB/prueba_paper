@@ -12,27 +12,49 @@ import pickle
 import pandas as pd
 import numpy as np
 
-
-# Funciones#########################################
-def detecta_salto(a):
+#####Funcion
+def f_interpolar_1_dbar(df):
     """
-    Detecta si hay dos estaciones con el mismo nombre. El criterio es la ubicacion,
-    si existen dos mediciones con un mismo nombre y ubicacion (latitud y longitud)
-    diferentes, son estaciones diferentes. y por fechas.
+    Interpola los datos de los perfiles verticales cada 1 dbar.
 
     INPUTS
-    ------
-    a: list
-        lista de indices de la estacion
-    OUTPUTS
-    ------
-    salto: np.nan or int
-        Si existe un salto, salto == indice del inicio de las estaciones.
-        Si no hay salto, salto == np.nan.
-    """
+    df: DataFrame. keys: ['PRES','SAL','TEMP']
+        datos del perfil vertical
 
-    return salto
-###################################################
+    OUTPUTS
+    df_interpolado: DataFrame. keys: ['PRES','SAL','TEMP']
+        Datos del perfil vertical interpolado cada 1 dbar
+
+    """
+    import numpy as np
+    import pandas as pd
+
+    x   = df['PRES']
+    y_T = df['TEMP']
+    y_S = df['SAL']
+
+    max_valor = int(len(x)-1)
+    x_vals = np.linspace(0,max_valor,max_valor + 1 , dtype = int)
+    y_T_interp = np.interp(x_vals, x, y_T)
+    y_S_interp = np.interp(x_vals, x, y_S)
+
+    # Relleno con Nans hasta 5000 dbar
+    P = np.nan*np.ones(5001)
+    T = np.nan*np.ones(5001)
+    S = np.nan*np.ones(5001)
+
+    P[:max_valor+1] = x_vals
+    T[:max_valor+1] = y_T_interp
+    S[:max_valor+1] = y_S_interp
+
+    d = {'PRES': P,
+         'SAL' : S,
+         'TEMP': T}
+    df_interpolado = pd.DataFrame(data = d)
+
+    return df_interpolado
+
+#######
 
 path = path_gral + 'prueba_paper/estaciones_CTD_tipo/BoxNorte_NivelesStd.csv'
 
@@ -109,9 +131,8 @@ for est in estaciones:
                      'SAL' : data_sort[:,1],
                      'TEMP': data_sort[:,2]}
                 df = pd.DataFrame(data = d)
-                if np.max(np.abs(d['TEMP'])) >30:
-                    print('Temp >30grad, estacion:',est)
 
+                df = f_interpolar_1_dbar(df)
                 nombre = 'bn' +str(est)+'_'+str(count_lat)+'_'+str(count_lon)+'_'+str(count_fecha)
                 dic = {'estacion':nombre,
                     'fecha': fecha0,
@@ -120,7 +141,7 @@ for est in estaciones:
                     'data': df}
 
                 pickle.dump(dic, open(path_gral + 'prueba_paper/estaciones_CTD_tipo/Box_norte/'+str(nombre)+'.p', "wb" ) )
-
+                print(est)
 
 
 

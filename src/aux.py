@@ -161,10 +161,11 @@ def add_simpson_parameter(filename):
     # Perfil vertical de densidad inventado
     df, lat, lon, fecha, par_sim = read_pickle_perfiles(filename)
 
+    ind_ultimo = np.where(np.isnan(df['PRES']) == False)[0][-1]
     # Densidad potencial
-    rho = df['DENS'].values
+    rho = df['DENS'].values[:ind_ultimo]
     # Profundidad
-    prof = df['PROF'].values
+    prof = df['PROF'].values[:ind_ultimo]
 
     # Delta de profundidad:
         # c/ medicion de dens es representativa de 'un poco' para arriba y 'un poco'
@@ -247,10 +248,11 @@ def add_pcm_umbral_densidad(filename, zref, umbral):
 
     df, lat, lon, fecha, par_sim = read_pickle_perfiles(filename)
 
+    ind_ultimo = np.where(np.isnan(df['PRES']) == False)[0][-1]
     # Densidad potencial
-    rho = df['DENS'].values
+    rho = df['DENS'].values[:ind_ultimo]
     # Profundidad
-    prof = df['PROF'].values
+    prof = df['PROF'].values[:ind_ultimo]
 
     rho_sup = rho[0]
     rho_fondo = rho[-1]
