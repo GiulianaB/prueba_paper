@@ -1,5 +1,8 @@
 """
-Rutina para acomodar los perfiles de la caja Norte
+Rutina para acomodar los perfiles de la caja Norte.
+Separa por nombre de estacion. Dsp separo por latitud, longitud y fecha.
+si el perfil tiene la misma cant de datos de presion, temperatura y salinidad,
+lo guardo como un .p en la carperta Box_norte
 
 Dani Risaro
 Giuli Berden
@@ -11,6 +14,7 @@ path_gral = '/media/giuliana/Disco1TB/'
 import pickle
 import pandas as pd
 import numpy as np
+from dateutil import parser
 
 #####Funcion
 def f_interpolar_1_dbar(df):
@@ -114,7 +118,8 @@ for est in estaciones:
             lista_fechas = list(df_est_lat_lon['Fecha'])
             lista_fechas_sin_horas = []
             for f in lista_fechas:
-                lista_fechas_sin_horas.append(f[0:11])
+                f_cambio_formato = parser.parse(f).strftime("%d%m%Y")
+                lista_fechas_sin_horas.append(f_cambio_formato)
             fechas = list(set([k for k in lista_fechas_sin_horas if lista_fechas_sin_horas.count(k)>=1]))
             for count_fecha, fecha0 in enumerate(fechas):
                 ind_est_lat_lon_fecha = np.where(np.array(lista_fechas_sin_horas) == fecha0)[0]
@@ -132,28 +137,21 @@ for est in estaciones:
                      'TEMP': data_sort[:,2]}
                 df = pd.DataFrame(data = d)
 
-                df = f_interpolar_1_dbar(df)
-                nombre = 'bn' +str(est)+'_'+str(count_lat)+'_'+str(count_lon)+'_'+str(count_fecha)
-                dic = {'estacion':nombre,
-                    'fecha': fecha0,
-                    'lat': lat0,
-                    'lon': lon0,
-                    'data': df}
+                # Chequeo que todas las variables tengan la misma dimension
+                npres, ntemp, nsal = len(d['PRES']),len(d['TEMP']),len(d['SAL'])
+                if npres == ntemp and npres == nsal:
 
-                pickle.dump(dic, open(path_gral + 'prueba_paper/estaciones_CTD_tipo/Box_norte/'+str(nombre)+'.p', "wb" ) )
-                print(est)
+                    # Interpolacion cada 1 dbar
+                    df = f_interpolar_1_dbar(df)
+                    nombre = 'bn' +str(est)+'_'+str(count_lat)+'_'+str(count_lon)+'_'+str(fecha0)
+                    dic = {'estacion':nombre,
+                        'fecha': f,
+                        'lat': lat0,
+                        'lon': lon0,
+                        'data': df}
 
-
-
-
-
-
-
-
-
-
-
-
+                    pickle.dump(dic, open(path_gral + 'prueba_paper/estaciones_CTD_tipo/Box_norte/'+str(nombre)+'.p', "wb" ) )
+                    print(est)
 
 
 
