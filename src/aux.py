@@ -191,6 +191,8 @@ def add_simpson_parameter(filename):
     # A la sumatoria la multiplico por 1/k
     par_sim = (1/k) * sumatoria
 
+    if par_sim < 0: print('par_sim negativo')
+
     # Sobreescribo el archivo dentro de la carpeta 'perfiles' con el parametro de simpson agregado.
     dic = {'nombre': filename[:3],
             'fecha': fecha,
