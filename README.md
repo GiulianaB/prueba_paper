@@ -13,7 +13,9 @@ script principal donde se trabaja sobre los perfiles P,T,S
 carpeta con perfiles de P,T,S de ejemplo. 
 subcarpetas: 
 - Box norte: perfiles estandarizados a 1 dbar 
-- Box sur           
+- Box sur  : perfiles estandarizados a 1 dbar
+- Box_norte_mensual: perfil promedio mensual considerando nanmean. estandarizados a 1 dbar. format: '1978-04-01 00:00:00.p' 
+- Box_sur_mensual  : perfil promedio mensual considerando nanmean. estandarizados a 1 dbar. format: '1978-04-01 00:00:00.p'
 
 ### Environment
 - ```guia_crear_env.txt``` -> Guia para crear un environment usando el archivo .yml
