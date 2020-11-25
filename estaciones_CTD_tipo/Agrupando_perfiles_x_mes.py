@@ -1,6 +1,10 @@
 """
 Rutina para agrupar mensualmente los perfiles.
 1. Lista todos los perfiles dentro de la carpeta
+
+
+???? los promedios de los perfiles hacemos np.nanmean o np.mean????
+
 """
 
 # path_gral = '/home/daniu/Documentos/'
@@ -42,8 +46,8 @@ def promedio_mensual_datos(path_files,files_mes):
 
     # Datos promediados mensual
     d = {'PRES': P,
-         'SAL' : np.nanmean(S_mes, axis = 1),
-         'TEMP': np.nanmean(T_mes, axis = 1 )}
+         'SAL' : np.mean(S_mes, axis = 1),
+         'TEMP': np.mean(T_mes, axis = 1 )}
     df = pd.DataFrame(data = d)
 
 
@@ -52,6 +56,10 @@ def promedio_mensual_datos(path_files,files_mes):
 caja = 'sur'
 path_files = 'prueba_paper/estaciones_CTD_tipo/Box_'+str(caja)+'/'
 files = os.listdir(path_gral + path_files)
+if caja == 'norte':
+    lat0 = -42
+elif caja == 'sur':
+    lat0 = -50
 
 # lista de fechas asociadas a los files
 fechas = [i.split('_',3)[-1] [:-2] for i in files]
@@ -64,15 +72,16 @@ time = pd.date_range(start = str(Y_inicial)+str(m_inicial)+'01', end = str(Y_fin
 
 for yyyy in range(Y_inicial, Y_final+1):
     for mm in range(int(m_inicial),int(m_final)):
-        fecha = datetime.strptime(str(yyyy)+str(mm), '%Y%m')
+        fecha = str(yyyy)+'-'+str(mm)+'-01'
         mask = np.logical_and(fechas_dt.month == mm, fechas_dt.year == yyyy )
         files_mes = np.array(files)[mask]
         if len(files_mes) != 0:
             df = promedio_mensual_datos(path_files,files_mes)
-            p = {'time': fecha,
-                'caja': caja,
+            p = {'fecha': fecha,
+                'lat': lat0,
+                'lon': -64,
                  'data': df}
-            pickle.dump(p, open(path_gral + path_files[:-1] + '_mensual/'+str(fecha)+'.p', "wb" ) )
+            pickle.dump(p, open(path_gral + path_files[:-1] + '_mensual/b'+str(caja)[:1]+str(fecha)+'.p', "wb" ) )
 
 
 

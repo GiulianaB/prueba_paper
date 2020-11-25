@@ -16,9 +16,9 @@ import aux
 # leemos perfil
 path = path_gral + 'prueba_paper/estaciones_CTD_tipo/'
 
-filename = 'bn1128_0_0_08121989.p'
-# filename = 'bn1090_1_0_04121993.p'
 
+filename = 'bn1989-2-01.p'
+filename = 'bn1999-5-01.p'
 
 
 

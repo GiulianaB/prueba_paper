@@ -17,8 +17,8 @@ def read_pickle(filename):
     """
     import pickle
 
-    if filename[:2] == 'bn': filename = 'Box_norte/' + filename
-    if filename[:2] == 'bs': filename = 'Box_sur/' + filename
+    if filename[:2] == 'bn': filename = 'Box_norte_mensual/' + filename
+    if filename[:2] == 'bs': filename = 'Box_sur_mensual/' + filename
     pickle_perfil = pickle.load(open('../estaciones_CTD_tipo/' + filename, 'rb'))
 
     df_datos = pickle_perfil.get('data')
